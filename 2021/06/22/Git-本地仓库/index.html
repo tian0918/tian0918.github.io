@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言做为一个程序员肯定离不开和Git打交道。之前项目管理一直使用的都是图形化的管理工具，对一些具体的Git命令都只是一知半解的，遇到一些棘手的问题使用图形化有时解决起来还是比较麻烦的，所以趁着现在有空就完全使用命令行来把Git的命令都熟悉一遍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-本地仓库建立与同步到远端">
+<meta property="og:url" content="http://example.com/2021/06/22/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/index.html">
+<meta property="og:site_name" content="Randy的博客">
+<meta property="og:description" content="前言做为一个程序员肯定离不开和Git打交道。之前项目管理一直使用的都是图形化的管理工具，对一些具体的Git命令都只是一知半解的，遇到一些棘手的问题使用图形化有时解决起来还是比较麻烦的，所以趁着现在有空就完全使用命令行来把Git的命令都熟悉一遍。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-22T09:22:15.000Z">
+<meta property="article:modified_time" content="2021-06-22T09:22:15.865Z">
+<meta property="article:author" content="Randy">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/06/22/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/06/22/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/","path":"2021/06/22/Git-本地仓库/","title":"Git-本地仓库建立与同步到远端"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git-本地仓库建立与同步到远端 | Randy的博客</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Randy的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Git 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">创建本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">创建远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">本地仓库链接远程仓库</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Randy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="/ty8856919@gmail.com" title="E-Mail → ty8856919@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/tian2019" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;tian2019" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ty8856919" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ty8856919" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/22/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Randy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Randy的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git-本地仓库建立与同步到远端
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-22 17:22:15" itemprop="dateCreated datePublished" datetime="2021-06-22T17:22:15+08:00">2021-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B-Git/" itemprop="url" rel="index"><span itemprop="name">教程 Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3><span id="前言">前言</span></h3><p>做为一个程序员肯定离不开和Git打交道。之前项目管理一直使用的都是图形化的管理工具，对一些具体的Git命令都只是一知半解的，遇到一些棘手的问题使用图形化有时解决起来还是比较麻烦的，所以趁着现在有空就完全使用命令行来把Git的命令都熟悉一遍。</p>
+<span id="more"></span>
+
+<h3><span id="git-安装">Git 安装</span></h3><p>我是使用Mac开发，所以这一系列都是基于Mac来讲解的。</p>
+<p><a target="_blank" rel="noopener" href="https://brew.sh/">HomeBrew</a>  <strong>推荐</strong> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew install git</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看当前Git版本</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git --version</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装最新版本Git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/git/git</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看Git安装位置</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是Mac有这么一个问题，因为Mac是出场就自带Apple的Git，所以没有设置过的话，执行git –version 会看到类似的结果 <strong>git version 1.9.5 (Apple Git-50.3)</strong> ，而且Apple自带的Git是在/usr/bin/git下的。所以为了方便使用我们一般不使用系统自带的Git，而是将Git路径指到我们安装的路径下：/usr/local/bin/git</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew link --overwrite git</span></span><br></pre></td></tr></table></figure>
+
+<p>用brew安装好之后在执行上面的命令就可以了。</p>
+<h3><span id="配置">配置</span></h3><p>安装完成之后，首先要做的就是配置你自己的人用户名和邮件地址，这样每次提交都会使用这些信息，它们会写入到每一次提交中并且不可以修改。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">&quot;your name/nickName&quot;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email your Email Address</span></span><br></pre></td></tr></table></figure>
+
+<p>上边的代码是全局设置的用户信息，就是不管你有几个Git仓库，每个仓库提交的时候都使用的是这个信息。(前提是你其它仓库没有专门设置)。</p>
+<p>当然有global就会有local，local就是对你指定的仓库设置独立的用户信息。使用local的话首先要进入到你的仓库的根目录然后在执行上边的代码，记得将global换成local，当然一般没有特殊需求的建议就设置一个global就可以了。还有一个system的参数，这个几乎不怎么用，这个就是针对Mac可以设置多用户登陆然后只要是在这个系统下登陆的用户的Git就使用system配置的信息。</p>
+<blockquote>
+<p>git config –local    ##只对某个仓库有效,切换到另外一个仓库失效<br>git config –global  ##当前用户的所有仓库有效,工作当中最常用<br>git config –sysstem  ##系统的所有用户,几乎不用</p>
+</blockquote>
+<p>然后我们可以通过Git提供的一些命令来查看我们的配置信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --list --<span class="built_in">local</span> <span class="comment">#查看某个仓库下的配置</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --list --global <span class="comment">#查看当前用户的配置</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --list --global <span class="comment">#查看系统配置</span></span></span><br></pre></td></tr></table></figure>
+
+<p>到此我们本地的配置已经基本完成了，下一步就是创建一个本地仓库了。</p>
+<hr>
+<h3><span id="创建本地仓库">创建本地仓库</span></h3><p>其实就一个简单的命令就可以搞定,到你存放仓库的根目录下执行下面的命令一个本地仓库就创建成功了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Initialized empty Git repository in /Users/xxx/xxx/你的根目录/.git/</strong> </p>
+<p>看到类似这样的输出，就表明你的本地仓库已经创建成功。就可以愉快的玩耍了，可是只是自己在本地玩耍并没有什么意义，而且也发挥不出Git的真正作用，为了发挥出Git的分布式，多人协同开发的作用，那我们就需要将自己的仓库上传到GItHub/Gitee等代码管理平台，本文采用GitHub作为范例，其它的逻辑都是一样的并没有什么显著差异。</p>
+<h3><span id="创建远程仓库">创建远程仓库</span></h3><ul>
+<li>登陆你的GitHub账号，没有需要先注册账号。</li>
+<li>登陆成功过后在首页点击左边一个绿色的按钮创建一个仓库。</li>
+<li>然后按提示一步一步填写信息就可以了。</li>
+<li>做完上一步你已经创建好一个远程仓库了。</li>
+</ul>
+<h3><span id="本地仓库链接远程仓库">本地仓库链接远程仓库</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add <span class="string">&quot;项目别名&quot;</span> git@github.com:xxxx/xxxx.git</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看远端仓库信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br></pre></td></tr></table></figure>
+
+<p>这样我们本地的仓库已经和远端的仓库有了链接，但是我们还需要将本地的信息push到远端。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push <span class="string">&quot;别名/origin&quot;</span> --all <span class="comment">#这样就是将本地多有的分支都push到远端了。</span></span></span><br></pre></td></tr></table></figure>
+
+<p>如果你的本地仓库里边是干净的没有创建任何文件,需要先将远端的拉取到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull <span class="string">&quot;别名&quot;</span> master</span> </span><br></pre></td></tr></table></figure>
+
+<p>这样就是将远端的master分支拉取到本地了。如果在本地新建了其它分支的话，如果想将本地分支push到远端的话还是执行git push “别名”  “本地分支名”:”远端分支名”。</p>
+<p>到此这样本地仓库已经和远端的完全同步，就可以开始多人协作开发了。如果在实际操作中遇到什么问题，可以仔细的看看Git的终端输出的提示信息，Git的提示信息还是很全面，哪块有问题需要怎么解决都会给出相应的提示的。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/21/Customize-sheets/" rel="prev" title="iOS15关于UISheetPresentationController的介绍">
+                  <i class="fa fa-chevron-left"></i> iOS15关于UISheetPresentationController的介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Randy</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
