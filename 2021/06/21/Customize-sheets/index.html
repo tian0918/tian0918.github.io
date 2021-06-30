@@ -19,20 +19,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。">
+<meta name="description" content="介绍今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。这个属性的基本作用就是我们可以控制模态弹出的视图的样式和大小，目前所有的模态弹出都是全屏显示的，而 iOS 15中新增的这个属性就是在模态弹出时我们可以选择让弹出的视图和当前视图在同一个界面类似UIActionSheet这个属性的效果。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS15关于UISheetPresentationController的介绍">
 <meta property="og:url" content="http://example.com/2021/06/21/Customize-sheets/index.html">
 <meta property="og:site_name" content="Randy的博客">
-<meta property="og:description" content="今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。">
+<meta property="og:description" content="介绍今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。这个属性的基本作用就是我们可以控制模态弹出的视图的样式和大小，目前所有的模态弹出都是全屏显示的，而 iOS 15中新增的这个属性就是在模态弹出时我们可以选择让弹出的视图和当前视图在同一个界面类似UIActionSheet这个属性的效果。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1grpxt89ercj30u01sznpd.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1grpxaed3bfj30u01sznpd.jpg">
 <meta property="article:published_time" content="2021-06-21T09:06:55.000Z">
-<meta property="article:modified_time" content="2021-06-22T09:21:47.590Z">
+<meta property="article:modified_time" content="2021-06-30T06:25:16.291Z">
 <meta property="article:author" content="Randy">
-<meta property="article:tag" content="iOS15">
-<meta property="article:tag" content="UISheetPresentationController">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="iOS 15">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1grpxt89ercj30u01sznpd.jpg">
 
@@ -90,6 +90,9 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -107,7 +110,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -120,30 +123,36 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-overview">
             <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Randy"
+      src="/images/avatar.JPG">
   <p class="site-author-name" itemprop="name">Randy</p>
   <div class="site-description" itemprop="description">学习、思考、成长</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
+          
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
+          
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -161,7 +170,7 @@
       </span>
   </div>
   <div class="cc-license site-overview-item animated" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
   </div>
 
 
@@ -200,7 +209,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/21/Customize-sheets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.JPG">
       <meta itemprop="name" content="Randy">
       <meta itemprop="description" content="学习、思考、成长">
     </span>
@@ -228,7 +237,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-22 17:21:47" itemprop="dateModified" datetime="2021-06-22T17:21:47+08:00">2021-06-22</time>
+        <time title="修改时间：2021-06-30 14:25:16" itemprop="dateModified" datetime="2021-06-30T14:25:16+08:00">2021-06-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -248,14 +257,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -266,10 +275,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。</p>
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>今天来介绍一个iOS15新出的属性，UISheetPresentationController它是继承于UIPresentationController。这个属性的基本作用就是我们可以控制模态弹出的视图的样式和大小，目前所有的模态弹出都是全屏显示的，而 iOS 15中新增的这个属性就是在模态弹出时我们可以选择让弹出的视图和当前视图在同一个界面类似UIActionSheet这个属性的效果。</p>
 <span id="more"></span>
 
-<p>它有什么效果呢？举个🌰，我们用UIImagePickerController进行图片选择时候，当界面跳转到我们的相册时，我们只能看到相册相关的界面而看不到我们的图片显示界面，只有在选完图片执行了dismiss后我们才能看到选择的结果。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>它有什么效果呢？举个🌰，我们用UIImagePickerController进行图片选择时候，当界面跳转到我们的相册时，我们只能看到相册相关的界面而看不到我们的图片显示界面，只有在选完图片执行了dismiss后我们才能看到选择的结果。</p>
 <img src="https://tva1.sinaimg.cn/large/008i3skNgy1grpxt89ercj30u01sznpd.jpg" alt="图片说明" height="300px">
 
 <p>但是如果我们使用了UISheetPresentationController之后我们就可以在同一个界面既能选择图片又能看到结果。</p>
@@ -279,7 +288,7 @@
 <p>下面就是我自己实现这个功能的一个简单的选择照片的Demo</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">didTapAdd</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> picker <span class="operator">=</span> <span class="type">UIImagePickerController</span>()</span><br><span class="line">        picker.sourceType <span class="operator">=</span> .photoLibrary</span><br><span class="line">        picker.delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> sheet <span class="operator">=</span> picker.presentationController <span class="keyword">as?</span> <span class="type">UISheetPresentationController</span> &#123;</span><br><span class="line">            sheet.detents <span class="operator">=</span> [.medium(), .large()]</span><br><span class="line">          <span class="comment">//设置sheet显示两种模式：全屏和半屏</span></span><br><span class="line">            sheet.smallestUndimmedDetentIdentifier <span class="operator">=</span> .medium</span><br><span class="line">            sheet.prefersGrabberVisible <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">            sheet.prefersScrollingExpandsWhenScrolledToEdge <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">          <span class="comment">//在半屏时禁止滚动内容而改变sheet的大小，如果detents只设置一个值此属性没有效果。</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        present(picker, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">imagePickerController</span>(<span class="keyword">_</span> <span class="params">picker</span>: <span class="type">UIImagePickerController</span>, <span class="params">didFinishPickingMediaWithInfo</span> <span class="params">info</span>: [<span class="type">UIImagePickerController</span>.<span class="params">InfoKey</span> : <span class="keyword">Any</span>])</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> sheet <span class="operator">=</span> picker.presentationController <span class="keyword">as?</span> <span class="type">UISheetPresentationController</span> &#123;</span><br><span class="line">            sheet.animateChanges &#123;</span><br><span class="line">                sheet.selectedDetentIdentifier <span class="operator">=</span> .medium</span><br><span class="line">              <span class="comment">// 选择完图片时，将sheet改为以半屏显示</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> image <span class="operator">=</span> info[<span class="type">UIImagePickerController</span>.<span class="type">InfoKey</span>.originalImage] <span class="keyword">as?</span> <span class="type">UIImage</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        imageView.image <span class="operator">=</span> image</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个相对较简单基本就是这样的，如果大家还有其它的需求可以在文档中看看相关属性的介绍。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一个很小很实用的功能，不过对于一些场景功能复杂的App来说目前这个功能还是有些鸡肋，不过对一般的App来说确实是个很不错的属性，省下了大把的找轮子，修轮子的时间。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://developer.apple.com/videos/play/wwdc2021/10063/">WWDC2021</a> </p>
 <p><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller?changes=_2_1">UISheetPresentationController官方文档</a></p>
@@ -293,8 +302,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/iOS15/" rel="tag"># iOS15</a>
-              <a href="/tags/UISheetPresentationController/" rel="tag"># UISheetPresentationController</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
+              <a href="/tags/iOS-15/" rel="tag"># iOS 15</a>
           </div>
 
         
