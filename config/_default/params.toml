@@ -1,12 +1,29 @@
-title="I'm Ethan"
-author = "Jane Doe"
-copyright = "2020-{{ YEAR }}"
-# Apperance
+title = "Tian"
+# author = "Jane Doe"
+copyright = "2025-{{ YEAR }}"
+# description = "Reading · Listening · Growing through words and thoughts"
+description = "阅读 · 倾听 · 成长"
 profilePicture = "images/profile.jpg"
 favicon = "favicons/"
 contentratio = 0.8
-disableTitleCapitalization = true
 disableArchiveTitleStyling  = true
+disableTitleCapitalization = true
+hidesidebar = true
 
-# Content
 readMore = true
+
+## Social links
+[[socialIcons]]
+icon = "fa-brands fa-x-twitter"
+title = "X"
+url = "https://x.com/randy_0918"
+
+[[socialIcons]]
+icon = "fa-brands fa-github"
+title = "GitHub"
+url = "https://github.com/tian0918"
+
+[[socialIcons]]
+icon = "fa-solid fa-envelope"
+title = "e-mail"
+url = "mailto:ty8856919@gamil.com"
