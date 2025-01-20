@@ -1,0 +1,12 @@
+title="I'm Ethan"
+author = "Jane Doe"
+copyright = "2020-{{ YEAR }}"
+# Apperance
+profilePicture = "images/profile.jpg"
+favicon = "favicons/"
+contentratio = 0.8
+disableTitleCapitalization = true
+disableArchiveTitleStyling  = true
+
+# Content
+readMore = true
