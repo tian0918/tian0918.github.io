@@ -7,4 +7,4 @@ title = 'My First Post'
 ### This is first create post
  Hello fix git action
 
-<img src="/Users/ethan/Downloads/alim-DkfnGxoy5NI-unsplash.jpg" alt="alim-DkfnGxoy5NI-unsplash" style="zoom:25%;" />
+![alim-DkfnGxoy5NI-unsplash](https://raw.githubusercontent.com/tian0918/blogSource-hosting/master/images/2025/01/alim-DkfnGxoy5NI-unsplash.jpg)
