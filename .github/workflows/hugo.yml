@@ -35,6 +35,7 @@ jobs:
 
       - name: Build
         run: hugo --minify
+
       - name: Filter public directory
         run: |
           mkdir -p public_filtered
@@ -49,7 +50,7 @@ jobs:
           exclude: |
             **/*.log
             **/.git
-
+          
   deploy:
     environment:
       name: github-pages
@@ -61,6 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: github-pages
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
