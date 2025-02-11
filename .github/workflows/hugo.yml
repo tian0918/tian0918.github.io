@@ -35,12 +35,16 @@ jobs:
 
       - name: Build
         run: hugo --minify
+      - name: Filter public directory
+        run: |
+          mkdir -p public_filtered
+          rsync -av --exclude='*.log' --exclude='.git/' public/ public_filtered/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4 
         with:
           name: github-pages
-          path: ./public
+          path: ./public_filtered
           if-no-files-found: error  # 避免上传空目录
           exclude: |
             **/*.log
