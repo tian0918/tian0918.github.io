@@ -8,10 +8,11 @@ favicon = "favicons/"
 contentratio = 0.8
 disableArchiveTitleStyling  = true
 disableTitleCapitalization = true
-hidesidebar = true
-
+customCss = ["css/list-title.css"]
+hidesidebar = false
+doNotLoadAnimations = true
 readMore = true
-
+mainSections = ["posts"]
 ## Social links
 [[socialIcons]]
 icon = "fa-brands fa-x-twitter"
