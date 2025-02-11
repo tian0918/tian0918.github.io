@@ -41,6 +41,10 @@ jobs:
         with:
           name: github-pages
           path: ./public
+          if-no-files-found: error  # 避免上传空目录
+          exclude: |
+            **/*.log
+            **/.git
 
   deploy:
     environment:
