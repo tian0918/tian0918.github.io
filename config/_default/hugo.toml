@@ -2,9 +2,32 @@ baseURL = 'https://tianye.me/'
 languageCode = 'en-us'
 title = "Ethan's Home"
 # theme = 'anatole'  # Comment out or remove this line
+
 summarylength = 10
 enableEmoji = true
 enableRobotsTXT = true
+
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+        unsafe=false
+
+[taxonomies]
+    category = "categories"
+    series = "series"
+    tag = "tags"
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = true
+[[related.indices]]
+  name = 'keywords'
+  weight = 100
+[[related.indices]]
+  name = 'tags'
+  weight = 80
+
 
 # Syntax highlighting
 pygmentsUseClasses = true   
