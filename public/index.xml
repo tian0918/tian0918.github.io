@@ -6,7 +6,19 @@
     <description>Recent content on Ethan&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 11 Feb 2025 22:18:33 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Feb 2025 21:02:40 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Thu, 27 Feb 2025 21:02:40 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      
+        <description>&lt;h1 id=&#34;关于我&#34;&gt;关于我&lt;/h1&gt;
+&lt;p&gt;我是一个程序员，最早专注于移动端开发，特别喜欢用 &lt;strong&gt;Swift&lt;/strong&gt; 和 &lt;strong&gt;SwiftUI&lt;/strong&gt; 打造应用。随着时间的推移，我逐渐发现自己对 &lt;strong&gt;Web 开发&lt;/strong&gt; 的兴趣越来越浓，尤其是通过 &lt;strong&gt;Vue&lt;/strong&gt; 探索前端的乐趣。如今，我正朝着 Web 开发的方向努力前行。虽然在这个领域我还不算成熟，但我会一直坚持学习，不断提升自己。技术的世界日新月异，我也乐于接受和尝试各种新技术，无论是新的框架还是工具，都愿意去探索和实践。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>我的读书之旅</title>
       <link>http://localhost:1313/posts/myreading/</link>
@@ -27,30 +39,6 @@
 &lt;li&gt;利用 Python 进行数据分析&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;到目前就《白夜行》和 《天才在左疯子在右》这两本还有点印象，“天才” 的印象就是如果站在上帝角度，谁才是疯子呢？&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>My First Post</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
-      <pubDate>Mon, 20 Jan 2025 20:32:27 +0800</pubDate>
-      
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
-      
-        <description>&lt;h3 id=&#34;this-is-first-create-post&#34;&gt;This is first create post&lt;/h3&gt;
-&lt;p&gt;Hello fix git action&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/tian0918/blogSource-hosting/master/images/2025/01/alim-DkfnGxoy5NI-unsplash.jpg&#34; alt=&#34;alim-DkfnGxoy5NI-unsplash&#34;&gt;{width=20px}&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/about/</guid>
-      
-        <description>Hugo, the world&#39;s fastest framework for building websites</description>
       
     </item>
     
